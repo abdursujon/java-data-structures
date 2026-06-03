@@ -4,27 +4,47 @@ This project is a practical guide to help beginner learn data structures in java
 It covers all necessary java provided data structures alongside custom data structures 
 for example how to build circular array queue, how array list internally built and more. 
 
-# Structure
+# Structure how the repo should be used to learn java data structure in sequence 
 
-## Java Provided Data Structures 
-- Array and Arrays(Helper class)
-- String 
+1. Arrays x
+- Default array 
+- Matrix array 
+- Arrays (Java array helper class)
+
+2. String x
+- String class methods 
 - StringBuilder 
-- ArrayList
+
+3. Interfaces x
+- Collection 
+
+4. List x
+- ArrayList 
 - LinkedList
-- HashMap
-- LinkedHashMap
-- TreeMap
-- HashSet
-- LinkedHashSet
+
+5. Set x
+- HashSet 
+- LinkedHashSet 
 - TreeSet 
-- ArrayDeque
-- ArrayBlockingQueue
+
+6. Map x
+- HashMap 
+- LinkedHashMap 
+- TreeMap 
+
+7. Queue x
+- ArrayDeque 
 - PriorityQueue 
-- Stacks
-- Collection - root interface of the collections hierarchy; defines the common operations every List/Set/Queue must
-  support (add, remove, contains, size, iterator etc)
-- Collections - utility class of static methods that operate on collections (sort, reverse, max, unmodifiableList etc)
+
+8. Stack x
+- Stack 
+
+9. DS Helper Class 
+- Collections 
+
+10. Concurrency 
+- ArrayBlockingQueue 
+- LinkedBlockingQueue 
 
 
 ## Custom Data Structures 
@@ -33,9 +53,10 @@ for example how to build circular array queue, how array list internally built a
 - Graph 
 - Heap 
 - Binary Search Tree 
+- Binary Search 
 - Trie 
-- HashMap 
-- LinkedList 
+- HashMap (How has map works and how to build it)
+- LinkedList (How to build LinkedList)
 
 ## Getting Started
 
@@ -48,7 +69,7 @@ Open it in your IDE or \
 Edit it terminal  
 ```bash
   cd ../java-data-structures/src/java_provided_ds
-  nano ArrayListDemo.java
+  nano list.ArrayListExampleple.java
 ```
 
 ## Example Run 
@@ -57,5 +78,5 @@ Edit it terminal
 
 ```bash
 cd src/java_provided_ds
-java ArrayListDemo.java
+java list.ArrayListExampleple.java
 ```

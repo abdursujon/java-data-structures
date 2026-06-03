@@ -1,8 +1,26 @@
+package interfaces;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * Collection is the root interface of the collections hierarchy.
+ * It defines the common operations every List/Set/Queue must support:
+ * 1. add(element) — add a single item
+ * 2. addAll(collection) — add every item from another collection
+ * 3. contains(element) — is this item present?
+ * 4. containsAll(collection) — are all of these items present?
+ * 5. size() — number of elements
+ * 6. isEmpty() — true when size is 0
+ * 7. iterator() — get an Iterator to walk the elements
+ * 8. toArray() — copy elements into an Object[]
+ * 9. retainAll(collection) — keep only items also in the given collection
+ * 10. remove(element) — remove a single item
+ * 11. removeAll(collection) — remove every item found in the given collection
+ * 12. clear() — remove all elements
+ */
 public class CollectionInterfaceInJava {
     public static void main(String[] args){
         // Collection interface is implemented by list, and list is implemented by arraylist

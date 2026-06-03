@@ -1,3 +1,5 @@
+package queue;
+
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -25,72 +27,94 @@ import java.util.Iterator;
  * 19. iterator()
  * 20. clear()
  */
-public class ArrayDeques{
-    public static boolean matchingBracket(String s){
-        ArrayDeque<Character> ad = new ArrayDeque<>();
-        for(int i = 0; i < s.length(); i++){
-            char c = s.charAt(i);
-            if(c == '(') {
-                ad.push(c);
-            } else if (c == ')'){
-                if(ad.isEmpty()) return false;
-                ad.pop();
-            }
-        }
-        return ad.isEmpty();
-    }
+public class ArrayDequeExample {
 
     public static void main(String[] args){
-        System.out.println(matchingBracket("()()()"));
-        System.out.println(matchingBracket("(())"));
-        System.out.println(matchingBracket("(()"));
-        System.out.println(matchingBracket(")("));
 
         ArrayDeque<String> deque = new ArrayDeque<>();
 
+        // 1. add(element)
         deque.add("(");
         deque.add(")");
+        // 2. addFirst(element)
         deque.addFirst("[");
+        // 3. addLast(element)
         deque.addLast("]");
         System.out.println(deque);
 
-        // difference between add and offer is that if array is full and we try to add more element with offer
-        // the program won't fail with exception it will return false instead.
+        // 4. offer(element)
         deque.offer("(");
         deque.offer(")");
+        // 5. offerFirst(element)
         deque.offerFirst("{");
+        // 6. offerLast(element)
         deque.offerLast("}");
 
+        // 7. remove()
         deque.remove();
         deque.remove("}");
         System.out.println(deque);
+        // 8. removeFirst()
         deque.removeFirst();
+        // 9. removeLast()
         deque.removeLast();
         System.out.println(deque);
 
-        System.out.println(deque.poll()); // deque operation it removes and returns first element
+        // 10. poll()
+        System.out.println(deque.poll());
         System.out.println(deque);
+        // 11. pollFirst()
         System.out.println(deque.pollFirst());
+        // 12. pollLast()
         System.out.println(deque.pollLast());
 
         deque.addAll(Arrays.asList("(", "{", "}"));
         System.out.println(deque);
 
+        // 13. peek()
         System.out.println(deque.peek());
+        // 14. peekFirst()
         System.out.println(deque.peekFirst());
+        // 15. peekLast()
         System.out.println(deque.peekLast());
 
+        // 16. contains(element)
         System.out.println(deque.contains("("));
         System.out.println(deque.contains("9"));
+        // 17. size()
         System.out.println(deque.size());
+        // 18. isEmpty()
         System.out.println(deque.isEmpty());
 
+        // 19. iterator()
         Iterator<String> i = deque.iterator();
-        while(i.hasNext()){
+        while (i.hasNext()) {
             System.out.println(i.next());
         }
 
+        // 20. clear()
         deque.clear();
         System.out.println(deque.isEmpty());
+
+        // Test case for matchingBracket method
+        System.out.println(matchingBracket("()()()"));
+        System.out.println(matchingBracket("(())"));
+        System.out.println(matchingBracket("(()"));
+        System.out.println(matchingBracket(")("));
+    }
+
+    public static boolean matchingBracket(String s) {
+        ArrayDeque<Character> ad = new ArrayDeque<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                ad.push(c);
+            } else if (c == ')') {
+                if (ad.isEmpty()) return false;
+                ad.pop();
+            }
+        }
+        return ad.isEmpty();
+
     }
 }

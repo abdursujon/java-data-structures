@@ -1,3 +1,5 @@
+package queue;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -18,7 +20,7 @@ import java.util.*;
  * 13. poll()
  * 14. clear()
  */
-public class PriorityQueues {
+public class PriorityQueueExample {
     static Map<Integer, List<String>> conditionMap = new HashMap<>();
 
     static {

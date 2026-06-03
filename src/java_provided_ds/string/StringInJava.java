@@ -1,3 +1,5 @@
+package string;
+
 import java.util.*;
 
 /**
@@ -29,7 +31,7 @@ import java.util.*;
  *
  * Conversion
  * 19. String.valueOf(x)
- * 20. Integer.parseInt(str) / Double.parseDouble(str)
+ * 20. Integer.parseInt(str) / Double.parseDouble(str) etc
  */
 public class StringInJava {
     public static void main(String[] args) {
