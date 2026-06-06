@@ -48,15 +48,14 @@ for example how to build circular array queue, how array list internally built a
 
 
 ## Custom Data Structures 
-- CircularArrayQueue 
-- Tree
-- Graph 
-- Heap 
-- Binary Search Tree 
+- LinkedList (how to build and how it works)
+- HashMap (build from scratch)
 - Binary Search 
+- Binary Search Tree
+- Heap 
+- Graph 
+- CircularQueue 
 - Trie 
-- HashMap (How has map works and how to build it)
-- LinkedList (How to build LinkedList)
 
 ## Getting Started
 
