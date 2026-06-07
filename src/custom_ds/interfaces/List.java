@@ -1,6 +1,5 @@
 package interfaces;
 
-import java.util.Collection;
 import java.util.Iterator;
 
 public interface List<E> extends Iterable<E>{

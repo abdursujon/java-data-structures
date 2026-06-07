@@ -24,6 +24,7 @@ public class ArrayList<E> implements List<E> {
         }
     }
 
+    // This one ensure that we check last element of the list
     private void checkIndex(int index){
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException("Index must be >= 0 " + " || <= " + size );
@@ -112,7 +113,7 @@ public class ArrayList<E> implements List<E> {
     @Override
     public boolean remove(E element) {
         int index = indexOf(element);
-        if(index == - 1) return false;
+        if(index == -1) return false;
         remove(index);
         return true;
     }
@@ -197,7 +198,7 @@ public class ArrayList<E> implements List<E> {
         ArrayList<Integer> noSizeDeclarationList = new ArrayList<>(); // default 10 elements with null values
 
         // void add(E element) at rear of the list
-        int[] nums = {90, 80, 70, 60, 50, 40, 30, 20, 10};
+        int[] nums = {100, 90, 80, 70, 60, 50, 40, 30, 20, 10};
         for(int n: nums){
             list.add(n);
         }
