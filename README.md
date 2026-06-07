@@ -43,18 +43,24 @@ for example how to build circular array queue, how array list internally built a
 - Collections 
 
 10. Concurrency 
-- ArrayBlockingQueue 
+- ArrayBlockingQueue x
 - LinkedBlockingQueue 
 
 
 ## Custom Data Structures 
+- ArrayList 
 - LinkedList (how to build and how it works)
+- DoublyLinkedList 
 - HashMap (build from scratch)
-- Binary Search 
+- HashSet 
+- Stack
+- ArrayQueue 
+- CircularQueue
+- Binary Search x
+- Binary Tree 
 - Binary Search Tree
-- Heap 
-- Graph 
-- CircularQueue 
+- Heap / Mind Heap / Max Heap  
+- Graph
 - Trie 
 
 ## Getting Started
