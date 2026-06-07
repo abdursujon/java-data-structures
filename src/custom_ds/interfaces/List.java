@@ -6,7 +6,7 @@ import java.util.Iterator;
 public interface List<E> extends Iterable<E>{
     void add(int index, E element);
     void add(E element); // add at the last index
-    void addAll(Collection<E> collection);
+    void addAll(List<E> list);
     E get(int index);
     E set(int index, E element);
     E remove(int index);
@@ -18,5 +18,5 @@ public interface List<E> extends Iterable<E>{
     boolean isEmpty();
     Iterator<E> iterator();
     @Override
-    String toString();
+    public String toString();
 }

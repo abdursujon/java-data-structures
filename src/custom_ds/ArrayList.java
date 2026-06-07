@@ -1,6 +1,6 @@
 import interfaces.List;
 
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -18,9 +18,15 @@ public class ArrayList<E> implements List<E> {
         this(10);
     }
 
+    private void checkIndexForAdd(int index){
+        if(index < 0 || index > size){
+            throw new IndexOutOfBoundsException("Index must be >= 0 " + " || <= " + size );
+        }
+    }
+
     private void checkIndex(int index){
         if(index < 0 || index >= size){
-            throw new IndexOutOfBoundsException("Index must be >= 0 " + " || < " + size );
+            throw new IndexOutOfBoundsException("Index must be >= 0 " + " || <= " + size );
         }
     }
 
@@ -28,13 +34,14 @@ public class ArrayList<E> implements List<E> {
     @Override
     public void add(int index, E element) {
         int n = arrayList.length;
-        checkIndex(index);
+        checkIndexForAdd(index);
         if(size == n){
             E[] newArrayList = (E[]) new Object[n * 2];
             System.arraycopy(arrayList, 0, newArrayList, 0, n);
             arrayList = newArrayList;
         }
 
+        // shifting element from given index to right one position
         for(int i = size - 1; i >= index; i--){
             arrayList[i + 1] = arrayList[i];
         }
@@ -58,8 +65,8 @@ public class ArrayList<E> implements List<E> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void addAll(Collection<E> collection) {
-        int newListSize = collection.size();
+    public void addAll(List<E> list) {
+        int newListSize = list.size();
         int sizeRequired = size + newListSize;
         if(sizeRequired > arrayList.length){
             // check if new capacity can be satisfied by doubling the size,
@@ -72,7 +79,7 @@ public class ArrayList<E> implements List<E> {
         }
 
         // going through each element in the given list and add each of them into the new list
-        for(E element : collection){
+        for(E element : list){
             arrayList[size++] = element;
         }
     }
@@ -148,6 +155,12 @@ public class ArrayList<E> implements List<E> {
         return size == 0;
     }
 
+    /**
+     * Cursor that walks the list array from index 0 to size - 1, allowing
+     * the list to be used in an enhanced for loop. Returned by iterator().
+     * 1. hasNext() - true while there are unvisited elements
+     * 2. next() - returns the current element and advances the cursor
+     */
     private class ArrayListIterator implements Iterator<E>{
         private int cursor = 0;
 
@@ -165,8 +178,69 @@ public class ArrayList<E> implements List<E> {
         }
     }
 
+    /**
+     * Returns a new cursor positioned at the start of the list, enabling
+     * traversal and use in an enhanced for loop.
+     */
     @Override
     public Iterator<E> iterator() {
         return new ArrayListIterator();
+    }
+
+    @Override
+    public String toString(){
+        return Arrays.toString(Arrays.copyOf(arrayList, size));
+    }
+
+    public static void main(String[] args){
+        ArrayList<Integer> list = new ArrayList<>(20); // 20 elements with null values
+        ArrayList<Integer> noSizeDeclarationList = new ArrayList<>(); // default 10 elements with null values
+
+        // void add(E element) at rear of the list
+        int[] nums = {90, 80, 70, 60, 50, 40, 30, 20, 10};
+        for(int n: nums){
+            list.add(n);
+        }
+        System.out.println(list);
+
+        // add(int index, E element);
+        list.add(9, 0);
+        System.out.println(list);
+
+        // addAll(Collection<E> collection);
+        ArrayList<Integer> listTwo = new ArrayList<>();
+        listTwo.add(19);
+        listTwo.add(32);
+        list.addAll(listTwo);
+
+        // E get(int index);
+        System.out.println(list.get(3));
+
+        // E set(int index, E element);
+        System.out.println(list.set(3, 45));
+
+        // E remove(int index);
+        System.out.println(list.remove(3));
+
+        // boolean remove(E element);
+        System.out.println(list.remove(1)); // true
+
+        // boolean contains(E element);
+        System.out.println(list.contains(9)); // false
+        System.out.println(list.contains(100)); // true
+
+        // int indexOf(E element);
+        System.out.println(list.indexOf(100));
+
+        // int size();
+        System.out.println(list.size());
+
+        // boolean isEmpty();
+        System.out.println(list.isEmpty());
+
+        // void clear();
+        list.clear();
+        System.out.println(list); // empty
+        System.out.println(list.isEmpty()); // true
     }
 }
