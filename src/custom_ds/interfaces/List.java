@@ -1,21 +1,11 @@
 package interfaces;
 
-import java.util.Iterator;
-
-public interface List<E> extends Iterable<E>{
-    void add(int index, E element);
-    void add(E element); // add at the last index
-    void addAll(List<E> list);
+public interface List<E> extends Collection<E>{
+    boolean add(int index, E element);
+    boolean addAll(int index, Collection<? extends E> c);
     E get(int index);
     E set(int index, E element);
     E remove(int index);
-    boolean remove(E element);
-    void clear();
-    boolean contains(E element);
-    int indexOf(E element);
-    int size();
-    boolean isEmpty();
-    Iterator<E> iterator();
-    @Override
-    public String toString();
+    int indexOf(E e);
+    int lastIndexOf(E e);
 }

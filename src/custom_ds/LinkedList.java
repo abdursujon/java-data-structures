@@ -1,8 +1,34 @@
+package custom_ds;
+
+import interfaces.Collection;
 import interfaces.List;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * 1. add(E e)
+ * 2. add(int index, E element)
+ * 3. addAll(Collection<? extends E> c)
+ * 4. addAll(int index, Collection<? extends E> c)
+ * 5. get(int index)
+ * 6. set(int index, E element)
+ * 7. remove(E e)
+ * 8. remove(int index)
+ * 9. removeAll(Collection<?> c)
+ * 10. retainAll(Collection<?> c)
+ * 11. clear()
+ * 12. contains(E e)
+ * 13. containsAll(Collection<?> c)
+ * 14. indexOf(Object o)
+ * 15. lastIndexOf(Object o)
+ * 16. size()
+ * 17. isEmpty()
+ * 18. toArray()
+ * 19. iterator()
+ * 20. equals(Object o)
+ * @param <E>
+ */
 public class LinkedList<E> implements List<E> {
 
     private class ListNode {
@@ -38,8 +64,27 @@ public class LinkedList<E> implements List<E> {
         }
     }
 
+
+    // * 1. add(E e)
     @Override
-    public void add(int index, E element) {
+    public boolean add(E element) {
+        if (size == 0) {
+            head = new ListNode(element, head);
+        } else {
+            ListNode current = head;
+            for (int i = 0; i < size - 1; i++) {
+                current = current.next;
+            }
+            current.next = new ListNode(element, current.next);
+        }
+        size++;
+        return true;
+    }
+
+
+    // * 2. add(int index, E element)
+    @Override
+    public boolean add(int index, E element) {
         checkIndexForAdd(index);
         if (index == 0) {
             // inserting at the front: new node becomes head and points to the old head
@@ -58,37 +103,32 @@ public class LinkedList<E> implements List<E> {
             current.next = new ListNode(element, current.next);
         }
         size++;
+        return false;
     }
 
-    @Override
-    public void add(E element) {
-        if (size == 0) {
-            head = new ListNode(element, head);
-        } else {
-            ListNode current = head;
-            for (int i = 0; i < size - 1; i++) {
-                current = current.next;
-            }
-            current.next = new ListNode(element, current.next);
-        }
-        size++;
-    }
 
+    // * 3. addAll(Collection<? extends E> c)
     @Override
-    public void addAll(List<E> list) {
-        if (list == null) return;
+    public boolean addAll(Collection<? extends E> list) {
+        if (list == null) return false;
+        int newListSize = list.size();
         for (E element : list) {
-            ListNode newNode = new ListNode(element, null);
-            if (head == null) {
-                head = newNode;
-            } else {
-                ListNode current = head;
-                while (current.next != null) { // walk to the last node
-                    current = current.next;
-                }
-                current.next = newNode;
-            }
+            add(element);
         }
+        return newListSize > 0;
+    }
+
+
+    // * 4. addAll(int index, Collection<? extends E> c)
+    @Override
+    public boolean addAll(int index, Collection<? extends E> list) {
+        checkIndexForAdd(index);
+        int newListSize = list.size();
+        int i = index;
+        for (E element : list) {
+            add(i++, element);
+        }
+        return newListSize > 0;
     }
 
 
@@ -101,7 +141,7 @@ public class LinkedList<E> implements List<E> {
      * @param index position of the element to retrieve
      * @return the element stored at the given index
      */
-
+    // * 5. get(int index)
     @Override
     public E get(int index) {
         checkIndex(index);
@@ -112,11 +152,13 @@ public class LinkedList<E> implements List<E> {
         return current.element;
     }
 
+
+    // * 6. set(int index, E element)
     @Override
     public E set(int index, E givenElement) {
         checkIndex(index);
         ListNode current = head;
-        for(int i = 0; i < index; i++){
+        for (int i = 0; i < index; i++) {
             current = current.next;
         }
         ListNode temp = current;
@@ -125,16 +167,28 @@ public class LinkedList<E> implements List<E> {
         return tempValue;
     }
 
+
+    // * 7. remove(E e)
+    @Override
+    public boolean remove(E element) {
+        int index = indexOf(element);
+        if (index == -1) return false;
+        remove(index);
+        return true;
+    }
+
+
+    // * 8. remove(int index)
     @Override
     public E remove(int index) {
         checkIndex(index);
         E removedObject = null;
-        if(index == 0){
+        if (index == 0) {
             removedObject = head.element;
             head = head.next;
-        } else{
+        } else {
             ListNode current = head;
-            for(int i = 0; i < index - 1; i++){
+            for (int i = 0; i < index - 1; i++) {
                 current = current.next;
             }
             removedObject = current.next.element;
@@ -144,26 +198,45 @@ public class LinkedList<E> implements List<E> {
         return removedObject;
     }
 
+
+    // * 9. removeAll(Collection<?> c)
     @Override
-    public boolean remove(E element) {
-        int index = indexOf(element);
-        if(index == -1) return false;
-        remove(index);
-        return true;
+    public boolean removeAll(Collection<?> c) {
+        return false;
     }
 
+
+    // * 10. retainAll(Collection<?> c)
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return false;
+    }
+
+
+    // * 11. clear()
     @Override
     public void clear() {
         head = null;
         size = 0;
     }
 
+
+    // * 12. contains(E e)
     @Override
     public boolean contains(E element) {
         int index = indexOf(element);
         return index != -1;
     }
 
+
+    // * 13. containsAll(Collection<?> c)
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        return false;
+    }
+
+
+    // * 14. indexOf(Object o)
     @Override
     public int indexOf(E givenElement) {
         //search for the element
@@ -179,16 +252,36 @@ public class LinkedList<E> implements List<E> {
             return index;
     }
 
+
+    // * 15. lastIndexOf(Object o)
+    @Override
+    public int lastIndexOf(E e) {
+        return -1;
+    }
+
+
+    // * 16. size()
     @Override
     public int size() {
         return size;
     }
 
+
+    // * 17. isEmpty()
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+
+    // * 18. toArray()
+    @Override
+    public Object[] toArray() {
+        return new Object[]{};
+    }
+
+
+    // * 19. iterator()
     private class LinkedListIterator implements Iterator<E> {
         private ListNode current = head;
 
@@ -213,6 +306,14 @@ public class LinkedList<E> implements List<E> {
         return new LinkedListIterator();
     }
 
+
+    // * 20. equals(Object o)
+    @Override
+    public boolean equals(Object o) {
+        return false;
+    }
+
+
     @Override
     public String toString() {
         if (head == null) return "[]";
@@ -224,60 +325,5 @@ public class LinkedList<E> implements List<E> {
             current = current.next;
         }
         return sb.append("]").toString();
-    }
-
-    public static void main(String[] args) {
-        LinkedList<Integer> list = new LinkedList<>();
-
-        // void add(E element) at rear of the list
-        int[] nums = {100, 90, 80, 70, 60, 50, 40, 30, 20, 10};
-        for (int n : nums) {
-            list.add(n);
-        }
-        System.out.println("after adding all items LinkedList is: " + list);
-
-        // add(int index, E element);
-        list.add(9, 0);
-        System.out.println("added extra element then list looks like: " + list);
-
-        // addAll(Collection<E> collection);
-        LinkedList<Integer> listTwo = new LinkedList<>();
-        listTwo.add(19);
-        listTwo.add(32);
-        list.addAll(listTwo);
-        System.out.println("list two added on list one, now list one is = " + list);
-
-        // E get(int index);
-        System.out.println("element of given index: " + list.get(3));
-
-        // E set(int index, E element);
-        System.out.println("set new element and removed element is: " + list.set(0, 45));
-        System.out.println("updated list is : " + list);
-
-        // E remove(int index);
-        System.out.println("removed element is: " + list.remove(3));
-        System.out.println("removed given index element, updated list is " + list);
-
-        // boolean remove(E element);
-        System.out.println("removed given element: " + list.remove(Integer.valueOf(45))); // true
-        System.out.println("updated list is : " + list);
-
-        // boolean contains(E element);
-        System.out.println("contains given element: " + list.contains(9)); // false
-        System.out.println("contains given element: " + list.contains(90)); // true
-
-        // int indexOf(E element);
-        System.out.println("index of given element is: " + list.indexOf(90));
-
-        // int size();
-        System.out.println("size of the list is: " + list.size());
-
-        // boolean isEmpty();
-        System.out.println("list is empty: " + list.isEmpty());
-
-        // void clear();
-        list.clear();
-        System.out.println("list is empty after clear: " + list );
-        System.out.println("list is empty: " + list.isEmpty()); // true
     }
 }

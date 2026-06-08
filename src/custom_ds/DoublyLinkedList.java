@@ -1,5 +1,7 @@
-import interfaces.List;
+package custom_ds;
 
+import interfaces.Collection;
+import interfaces.List;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -19,27 +21,40 @@ public class DoublyLinkedList<E> implements List<E> {
         ListNode() {}
     }
 
+    // head node initially null
     protected ListNode head;
+    // tail node initially null and both head and tail points to same object
     protected ListNode tail;
     protected int size;
 
+    // When adding an item with index, we check if the index is less than 0 or more then the size
     private void checkIndexForAdd(int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index must be >= 0 " + " || <= " + size);
         }
     }
 
-    // This one ensure that we check last element of the list
+    // This one ensure that we check last element of the list with index being 0 and less or equal to size
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index must be >= 0 " + " || <= " + size);
         }
     }
 
+
+    /**
+     * First check if index is 0, if so we need to enter the new element in head.
+     * We create a node with previous null (since it is head) and head node(which itself has prev, next and element value)
+     *
+     * @param index
+     * @param element
+     * @return
+     */
     @Override
-    public void add(int index, E element) {
+    public boolean add(int index, E element) {
         checkIndexForAdd(index);
         if(index == 0){
+            // create new node with it's data, prev node and next node(head)
             ListNode newNode = new ListNode(element, null, head);
             if(head != null){
                 // old head now points back to new node
@@ -56,6 +71,7 @@ public class DoublyLinkedList<E> implements List<E> {
             tail = newNode; // new node becomes the tail
         } else {
             ListNode current = head;
+            // stop one position before the index we are given so we can add the node in that position
             for(int i = 0; i < index - 1; i++){
                 current = current.next;
             }
@@ -65,10 +81,12 @@ public class DoublyLinkedList<E> implements List<E> {
             nextNode.prev = newNode;  // following node links back to new node
         }
         size++;
+        return false;
     }
 
+
     @Override
-    public void add(E element) {
+    public boolean add(E element) {
         ListNode newNode = new ListNode(element, tail, null);
         if (tail == null) {
             head = newNode;
@@ -77,14 +95,16 @@ public class DoublyLinkedList<E> implements List<E> {
         }
         tail = newNode;
         size++;
+        return false;
     }
 
     @Override
-    public void addAll(List<E> list) {
-        if (list == null) return;
+    public boolean addAll(int index, Collection<? extends E> list) {
+        if (list == null) return false;
         for (E element : list) {
             add(element);
         }
+        return true;
     }
 
     @Override
@@ -163,6 +183,26 @@ public class DoublyLinkedList<E> implements List<E> {
     }
 
     @Override
+    public boolean containsAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends E> c) {
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
     public void clear() {
         head = null;
         tail = null;
@@ -188,6 +228,11 @@ public class DoublyLinkedList<E> implements List<E> {
             return -1;
         else
             return index;
+    }
+
+    @Override
+    public int lastIndexOf(E e) {
+        return 0;
     }
 
     @Override
@@ -226,6 +271,11 @@ public class DoublyLinkedList<E> implements List<E> {
     }
 
     @Override
+    public Object[] toArray() {
+        return new Object[0];
+    }
+
+    @Override
     public String toString() {
         if (head == null) return "[]";
         StringBuilder sb = new StringBuilder("[");
@@ -236,61 +286,5 @@ public class DoublyLinkedList<E> implements List<E> {
             current = current.next;
         }
         return sb.append("]").toString();
-    }
-
-    public static void main(String[] args) {
-        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
-
-        // void add(E element) at rear of the list
-        int[] nums = {100, 90, 80, 70, 60, 50, 40, 30, 20, 10};
-        for (int n : nums) {
-            list.add(n);
-        }
-        System.out.println("after adding all items DoublyLinkedList is: " + list);
-
-        // add(int index, E element);
-        list.add(0, 55);
-        System.out.println("added extra element then list looks like: " + list);
-
-        // addAll(Collection<E> collection);
-        LinkedList<Integer> listTwo = new LinkedList<>();
-        listTwo.add(19);
-        listTwo.add(32);
-        list.addAll(listTwo);
-        System.out.println("list two added on list one, now list one is = " + list);
-
-        // E get(int index);
-        System.out.println("element of given index: " + list.get(3));
-
-        // E set(int index, E element);
-        System.out.println("set new element and removed element is: " + list.set(0, 45));
-        System.out.println("updated list after set is : " + list);
-
-        // E remove(int index);
-        System.out.println("removed element is: " + list.remove(3));
-        System.out.println("removed given index element, updated list is " + list);
-
-        // boolean remove(E element);
-        System.out.println("removed given element: " + list.remove(Integer.valueOf(45))); // true
-        System.out.println("updated list is : " + list);
-
-        // boolean contains(E element);
-        System.out.println("contains given element: " + list.contains(9)); // false
-        System.out.println("contains given element: " + list.contains(100)); // true
-
-        // int indexOf(E element);
-        System.out.println("index of given element is: " + list.indexOf(90));
-        System.out.println("index of given element is: " + list.indexOf(60));
-
-        // int size();
-        System.out.println("size of the list is: " + list.size());
-
-        // boolean isEmpty();
-        System.out.println("list is empty: " + list.isEmpty());
-
-        // void clear();
-        list.clear();
-        System.out.println("list is empty after clear: " + list );
-        System.out.println("list is empty: " + list.isEmpty()); // true
     }
 }
