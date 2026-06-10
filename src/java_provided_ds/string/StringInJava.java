@@ -129,17 +129,12 @@ public class StringInJava {
         String[] csvFormatter = csv.split(",");
         System.out.println(Arrays.toString(csvFormatter));
         System.out.println(csvFormatter[0]);
+        
         String[] experiment = {"ABC#TC", "CBD#TC", "BCD#TC", "ABC#TC", "ABC#TC"};
-        String[] uniqueEx = new String[experiment.length];
         Set<String> result = new HashSet<>();
         for(int j = 0; j < experiment.length; j++){
-            // [0] means just grab the first element of the split result.
-            uniqueEx[j] = experiment[j].split("#")[0];
-            if(!result.contains(uniqueEx[j])){
-                result.add(uniqueEx[j]);
-            }
+            result.add(experiment[j].split("#")[0])
         }
-        System.out.println(Arrays.toString(uniqueEx));
         System.out.println(result);
 
         // 17. String.join(delimiter, elements)
