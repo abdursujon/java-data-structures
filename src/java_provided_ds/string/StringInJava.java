@@ -133,14 +133,14 @@ public class StringInJava {
         String[] experiment = {"ABC#TC", "CBD#TC", "BCD#TC", "ABC#TC", "ABC#TC"};
         Set<String> result = new HashSet<>();
         for(int j = 0; j < experiment.length; j++){
-            result.add(experiment[j].split("#")[0])
+            result.add(experiment[j].split("#")[0]);
         }
         System.out.println(result);
 
         // 17. String.join(delimiter, elements)
         System.out.println(String.join(" | " , csvFormatter));
         // print array value with custom style
-        System.out.println(String.join(" : ", uniqueEx));
+        System.out.println(String.join(" : ", experiment));
 
         // 18. toCharArray()
         char[] charArray = s.toCharArray();
