@@ -1,32 +1,34 @@
-public class BST{
-    private static class Node {
-        int val;
+public class BinarySearchTree<T extends Comparable<T>>{
+    private  class Node {
+        T val;
         Node left;
         Node right;
 
-        Node(int val) {
+        Node(T val) {
             this.val = val;
         }
     }
 
     private Node root;
 
-    public BST(int val) {
+    public BinarySearchTree(T val) {
         this.root = new Node(val);
     }
 
-    public void insert(int val) {
+    public void insert(T val) {
         insertHelper(root, val);
     }
 
-    private void insertHelper(Node node, int val) {
-        if (val > node.val) {
+    private void insertHelper(Node node, T val) {
+        int compare = val.compareTo(node.val);
+
+        if (compare > 0) {
             if (node.right != null) {
                 insertHelper(node.right, val);
             } else {
                 node.right = new Node(val);
             }
-        } else if (val < node.val) {
+        } else if (compare < 0) {
             if (node.left != null) {
                 insertHelper(node.left, val);
             } else{
@@ -35,16 +37,16 @@ public class BST{
         }
     }
 
-    public void search(int val){
+    public void search(T val){
         System.out.println(searchHelper(root, val));
     }
 
-    private boolean searchHelper(Node node, int val){
-        if(node == null){
-            return false;
-        } else if(val == node.val){
+    private boolean searchHelper(Node node, T val){
+        if(node == null) return false;
+        int compare = val.compareTo(node.val);
+        if(val.equals(node.val)){
             return true;
-        } else if(val > node.val){
+        } else if(compare > 0){
             return searchHelper(node.right, val);
         } else {
             return searchHelper(node.left, val);
@@ -57,9 +59,10 @@ public class BST{
     }
 
     private void inOrderHelper(Node node){
-        if (node.left != null) inOrderHelper(node.left);
+        if(node == null) return;
+        inOrderHelper(node.left);
         System.out.print(node.val + " ");
-        if (node.right != null) inOrderHelper(node.right);
+        inOrderHelper(node.right);
     }
 
     public void preOrderPrint(){
@@ -68,9 +71,10 @@ public class BST{
     }
 
     private void preOrderHelper(Node node){
+        if(node == null) return;
         System.out.print(node.val + " ");
-        if(node.left != null) preOrderHelper(node.left);
-        if(node.right != null) preOrderHelper(node.right);
+        preOrderHelper(node.left);
+        preOrderHelper(node.right);
     }
 
     public void postOrderPrint(){
@@ -79,25 +83,26 @@ public class BST{
     }
 
     private void postOrderHelper(Node node){
-        if(node.left != null) postOrderHelper(node.left);
-        if(node.right != null) postOrderHelper(node.right);
+        if(node == null) return;
+        postOrderHelper(node.left);
+        postOrderHelper(node.right);
         System.out.print(node.val + " ");
     }
 
     public static void main(String[] args){
-        BST tree = new BST(8);
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>(8);
         int[] values = {1, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 56, 2, 8};
         for(int v: values){
             tree.insert(v);
         }
 
-        System.out.println("In-Order BST ");
+        System.out.println("In-Order BinarySearchTree ");
         tree.inOrderPrint();
 
-        System.out.println("Pre-Order BST ");
+        System.out.println("Pre-Order BinarySearchTree ");
         tree.preOrderPrint();
 
-        System.out.println("Post-Order BST ");
+        System.out.println("Post-Order BinarySearchTree ");
         tree.postOrderPrint();
 
         tree.search(900);
