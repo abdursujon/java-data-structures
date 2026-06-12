@@ -9,5 +9,4 @@ public interface Map<K, V> {
     int size();
     boolean isEmpty();
     void clear();
-    //Set<K> keySet;
 }
